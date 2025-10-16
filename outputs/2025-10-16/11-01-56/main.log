@@ -1,0 +1,1222 @@
+[2025-10-16 11:01:56,296][flwr][WARNING] - DEPRECATED FEATURE: flwr.simulation.start_simulation() is deprecated.
+	Instead, use the `flwr run` CLI command to start a local simulation in your Flower app, as shown for example below:
+
+		$ flwr new  # Create a new Flower app from a template
+
+		$ flwr run  # Run the Flower app in Simulation Mode
+
+	Using `start_simulation()` is deprecated.
+
+            This is a deprecated feature. It will be removed
+            entirely in future versions of Flower.
+        
+[2025-10-16 11:01:56,297][flwr][INFO] - Starting Flower simulation, config: num_rounds=1, no round_timeout
+[2025-10-16 11:01:57,787][flwr][INFO] - Flower VCE: Ray initialized with resources: {'CPU': 20.0, 'object_store_memory': 8420343398.0, 'node:__internal_head__': 1.0, 'memory': 19647467930.0, 'node:10.100.14.161': 1.0}
+[2025-10-16 11:01:57,788][flwr][INFO] - Optimize your simulation with Flower VCE: https://flower.ai/docs/framework/how-to-run-simulations.html
+[2025-10-16 11:01:57,788][flwr][INFO] - No `client_resources` specified. Using minimal resources for clients.
+[2025-10-16 11:01:57,788][flwr][INFO] - Flower VCE: Resources for each Virtual Client: {'num_cpus': 1, 'num_gpus': 0.0}
+[2025-10-16 11:01:57,860][flwr][INFO] - Flower VCE: Creating VirtualClientEngineActorPool with 20 actors
+[2025-10-16 11:01:57,860][flwr][INFO] - [INIT]
+[2025-10-16 11:01:57,860][flwr][INFO] - Requesting initial parameters from one random client
+[2025-10-16 11:01:59,374][flwr][INFO] - Received initial parameters from one random client
+[2025-10-16 11:01:59,374][flwr][INFO] - Starting evaluation of initial global parameters
+[2025-10-16 11:01:59,879][flwr][INFO] - initial parameters (loss, other metrics): 181.82725071907043, {'accuracy': 0.098}
+[2025-10-16 11:01:59,879][flwr][INFO] - 
+[2025-10-16 11:01:59,879][flwr][INFO] - [ROUND 1]
+[2025-10-16 11:01:59,879][flwr][INFO] - configure_fit: strategy sampled 10 clients (out of 100)
+[2025-10-16 11:02:00,383][flwr][ERROR] - Traceback (most recent call last):
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 95, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        partition_id_str, timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 401, in get_client_result
+    return self._fetch_future_result(cid)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 282, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ~~~~~~~^
+        future
+        ^^^^^^
+    )  # type: (str, Message, Context)
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/client_mode_hook.py", line 104, in wrapper
+    return func(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 2962, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ~~~~~~~~~~~~~~~~~~^
+        object_refs, timeout=timeout, _tensor_transport=_tensor_transport
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 1026, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=13432, ip=10.100.14.161, actor_id=b8031450fb2e9e7b3899a92b01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f681c239010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 54, in fit
+    optim = torch.optim.SGD(self.get_parameters(parameters), lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 400, in __init__
+    self.add_param_group(cast(dict, param_group))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_compile.py", line 53, in inner
+    return disable_fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_dynamo/eval_frame.py", line 929, in _fn
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 1112, in add_param_group
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=13432, ip=10.100.14.161, actor_id=b8031450fb2e9e7b3899a92b01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f681c239010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+[2025-10-16 11:02:00,384][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=13432, ip=10.100.14.161, actor_id=b8031450fb2e9e7b3899a92b01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f681c239010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 54, in fit
+    optim = torch.optim.SGD(self.get_parameters(parameters), lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 400, in __init__
+    self.add_param_group(cast(dict, param_group))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_compile.py", line 53, in inner
+    return disable_fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_dynamo/eval_frame.py", line 929, in _fn
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 1112, in add_param_group
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=13432, ip=10.100.14.161, actor_id=b8031450fb2e9e7b3899a92b01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f681c239010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+[2025-10-16 11:02:01,412][flwr][ERROR] - Traceback (most recent call last):
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 95, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        partition_id_str, timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 401, in get_client_result
+    return self._fetch_future_result(cid)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 282, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ~~~~~~~^
+        future
+        ^^^^^^
+    )  # type: (str, Message, Context)
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/client_mode_hook.py", line 104, in wrapper
+    return func(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 2962, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ~~~~~~~~~~~~~~~~~~^
+        object_refs, timeout=timeout, _tensor_transport=_tensor_transport
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 1026, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=13433, ip=10.100.14.161, actor_id=236136b98dc4d211e21e6f5801000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f2e003e9010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 54, in fit
+    optim = torch.optim.SGD(self.get_parameters(parameters), lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 400, in __init__
+    self.add_param_group(cast(dict, param_group))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_compile.py", line 53, in inner
+    return disable_fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_dynamo/eval_frame.py", line 929, in _fn
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 1112, in add_param_group
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=13433, ip=10.100.14.161, actor_id=236136b98dc4d211e21e6f5801000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f2e003e9010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+[2025-10-16 11:02:01,412][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=13433, ip=10.100.14.161, actor_id=236136b98dc4d211e21e6f5801000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f2e003e9010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 54, in fit
+    optim = torch.optim.SGD(self.get_parameters(parameters), lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 400, in __init__
+    self.add_param_group(cast(dict, param_group))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_compile.py", line 53, in inner
+    return disable_fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_dynamo/eval_frame.py", line 929, in _fn
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 1112, in add_param_group
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=13433, ip=10.100.14.161, actor_id=236136b98dc4d211e21e6f5801000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f2e003e9010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+[2025-10-16 11:02:01,481][flwr][ERROR] - Traceback (most recent call last):
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 95, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        partition_id_str, timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 401, in get_client_result
+    return self._fetch_future_result(cid)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 282, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ~~~~~~~^
+        future
+        ^^^^^^
+    )  # type: (str, Message, Context)
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/client_mode_hook.py", line 104, in wrapper
+    return func(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 2962, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ~~~~~~~~~~~~~~~~~~^
+        object_refs, timeout=timeout, _tensor_transport=_tensor_transport
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 1026, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=13419, ip=10.100.14.161, actor_id=17f4a306632c205f738e184d01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f48dc4e5010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 54, in fit
+    optim = torch.optim.SGD(self.get_parameters(parameters), lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 400, in __init__
+    self.add_param_group(cast(dict, param_group))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_compile.py", line 53, in inner
+    return disable_fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_dynamo/eval_frame.py", line 929, in _fn
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 1112, in add_param_group
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=13419, ip=10.100.14.161, actor_id=17f4a306632c205f738e184d01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f48dc4e5010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+[2025-10-16 11:02:01,482][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=13419, ip=10.100.14.161, actor_id=17f4a306632c205f738e184d01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f48dc4e5010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 54, in fit
+    optim = torch.optim.SGD(self.get_parameters(parameters), lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 400, in __init__
+    self.add_param_group(cast(dict, param_group))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_compile.py", line 53, in inner
+    return disable_fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_dynamo/eval_frame.py", line 929, in _fn
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 1112, in add_param_group
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=13419, ip=10.100.14.161, actor_id=17f4a306632c205f738e184d01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f48dc4e5010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+[2025-10-16 11:02:01,525][flwr][ERROR] - Traceback (most recent call last):
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 95, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        partition_id_str, timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 401, in get_client_result
+    return self._fetch_future_result(cid)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 282, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ~~~~~~~^
+        future
+        ^^^^^^
+    )  # type: (str, Message, Context)
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/client_mode_hook.py", line 104, in wrapper
+    return func(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 2962, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ~~~~~~~~~~~~~~~~~~^
+        object_refs, timeout=timeout, _tensor_transport=_tensor_transport
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 1026, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=13431, ip=10.100.14.161, actor_id=059a6cb7173628bbaee5765001000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f1bc4045010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 54, in fit
+    optim = torch.optim.SGD(self.get_parameters(parameters), lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 400, in __init__
+    self.add_param_group(cast(dict, param_group))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_compile.py", line 53, in inner
+    return disable_fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_dynamo/eval_frame.py", line 929, in _fn
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 1112, in add_param_group
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=13431, ip=10.100.14.161, actor_id=059a6cb7173628bbaee5765001000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f1bc4045010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+[2025-10-16 11:02:01,525][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=13431, ip=10.100.14.161, actor_id=059a6cb7173628bbaee5765001000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f1bc4045010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 54, in fit
+    optim = torch.optim.SGD(self.get_parameters(parameters), lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 400, in __init__
+    self.add_param_group(cast(dict, param_group))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_compile.py", line 53, in inner
+    return disable_fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_dynamo/eval_frame.py", line 929, in _fn
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 1112, in add_param_group
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=13431, ip=10.100.14.161, actor_id=059a6cb7173628bbaee5765001000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f1bc4045010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+[2025-10-16 11:02:01,629][flwr][ERROR] - Traceback (most recent call last):
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 95, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        partition_id_str, timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 401, in get_client_result
+    return self._fetch_future_result(cid)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 282, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ~~~~~~~^
+        future
+        ^^^^^^
+    )  # type: (str, Message, Context)
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/client_mode_hook.py", line 104, in wrapper
+    return func(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 2962, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ~~~~~~~~~~~~~~~~~~^
+        object_refs, timeout=timeout, _tensor_transport=_tensor_transport
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 1026, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=13434, ip=10.100.14.161, actor_id=8b1d66987918e9e70c93bd2601000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f97ec079010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 54, in fit
+    optim = torch.optim.SGD(self.get_parameters(parameters), lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 400, in __init__
+    self.add_param_group(cast(dict, param_group))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_compile.py", line 53, in inner
+    return disable_fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_dynamo/eval_frame.py", line 929, in _fn
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 1112, in add_param_group
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=13434, ip=10.100.14.161, actor_id=8b1d66987918e9e70c93bd2601000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f97ec079010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+[2025-10-16 11:02:01,629][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=13434, ip=10.100.14.161, actor_id=8b1d66987918e9e70c93bd2601000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f97ec079010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 54, in fit
+    optim = torch.optim.SGD(self.get_parameters(parameters), lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 400, in __init__
+    self.add_param_group(cast(dict, param_group))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_compile.py", line 53, in inner
+    return disable_fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_dynamo/eval_frame.py", line 929, in _fn
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 1112, in add_param_group
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=13434, ip=10.100.14.161, actor_id=8b1d66987918e9e70c93bd2601000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f97ec079010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+[2025-10-16 11:02:01,652][flwr][ERROR] - Traceback (most recent call last):
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 95, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        partition_id_str, timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 401, in get_client_result
+    return self._fetch_future_result(cid)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 282, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ~~~~~~~^
+        future
+        ^^^^^^
+    )  # type: (str, Message, Context)
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/client_mode_hook.py", line 104, in wrapper
+    return func(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 2962, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ~~~~~~~~~~~~~~~~~~^
+        object_refs, timeout=timeout, _tensor_transport=_tensor_transport
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 1026, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=13426, ip=10.100.14.161, actor_id=1ffb4ac8e94b8dab737ef94401000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7fb590041010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 54, in fit
+    optim = torch.optim.SGD(self.get_parameters(parameters), lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 400, in __init__
+    self.add_param_group(cast(dict, param_group))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_compile.py", line 53, in inner
+    return disable_fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_dynamo/eval_frame.py", line 929, in _fn
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 1112, in add_param_group
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=13426, ip=10.100.14.161, actor_id=1ffb4ac8e94b8dab737ef94401000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7fb590041010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+[2025-10-16 11:02:01,652][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=13426, ip=10.100.14.161, actor_id=1ffb4ac8e94b8dab737ef94401000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7fb590041010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 54, in fit
+    optim = torch.optim.SGD(self.get_parameters(parameters), lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 400, in __init__
+    self.add_param_group(cast(dict, param_group))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_compile.py", line 53, in inner
+    return disable_fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_dynamo/eval_frame.py", line 929, in _fn
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 1112, in add_param_group
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=13426, ip=10.100.14.161, actor_id=1ffb4ac8e94b8dab737ef94401000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7fb590041010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+[2025-10-16 11:02:01,713][flwr][ERROR] - Traceback (most recent call last):
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 95, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        partition_id_str, timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 401, in get_client_result
+    return self._fetch_future_result(cid)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 282, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ~~~~~~~^
+        future
+        ^^^^^^
+    )  # type: (str, Message, Context)
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/client_mode_hook.py", line 104, in wrapper
+    return func(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 2962, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ~~~~~~~~~~~~~~~~~~^
+        object_refs, timeout=timeout, _tensor_transport=_tensor_transport
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 1026, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=13424, ip=10.100.14.161, actor_id=a57107f41825fce37dd1fcf001000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f0a800dd010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 54, in fit
+    optim = torch.optim.SGD(self.get_parameters(parameters), lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 400, in __init__
+    self.add_param_group(cast(dict, param_group))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_compile.py", line 53, in inner
+    return disable_fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_dynamo/eval_frame.py", line 929, in _fn
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 1112, in add_param_group
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=13424, ip=10.100.14.161, actor_id=a57107f41825fce37dd1fcf001000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f0a800dd010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+[2025-10-16 11:02:01,713][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=13424, ip=10.100.14.161, actor_id=a57107f41825fce37dd1fcf001000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f0a800dd010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 54, in fit
+    optim = torch.optim.SGD(self.get_parameters(parameters), lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 400, in __init__
+    self.add_param_group(cast(dict, param_group))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_compile.py", line 53, in inner
+    return disable_fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_dynamo/eval_frame.py", line 929, in _fn
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 1112, in add_param_group
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=13424, ip=10.100.14.161, actor_id=a57107f41825fce37dd1fcf001000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f0a800dd010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+[2025-10-16 11:02:01,762][flwr][ERROR] - Traceback (most recent call last):
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 95, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        partition_id_str, timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 401, in get_client_result
+    return self._fetch_future_result(cid)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 282, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ~~~~~~~^
+        future
+        ^^^^^^
+    )  # type: (str, Message, Context)
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/client_mode_hook.py", line 104, in wrapper
+    return func(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 2962, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ~~~~~~~~~~~~~~~~~~^
+        object_refs, timeout=timeout, _tensor_transport=_tensor_transport
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 1026, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=13435, ip=10.100.14.161, actor_id=375aaef96fe096edc925b12c01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7fb9ec5b9010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 54, in fit
+    optim = torch.optim.SGD(self.get_parameters(parameters), lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 400, in __init__
+    self.add_param_group(cast(dict, param_group))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_compile.py", line 53, in inner
+    return disable_fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_dynamo/eval_frame.py", line 929, in _fn
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 1112, in add_param_group
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=13435, ip=10.100.14.161, actor_id=375aaef96fe096edc925b12c01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7fb9ec5b9010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+[2025-10-16 11:02:01,762][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=13435, ip=10.100.14.161, actor_id=375aaef96fe096edc925b12c01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7fb9ec5b9010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 54, in fit
+    optim = torch.optim.SGD(self.get_parameters(parameters), lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 400, in __init__
+    self.add_param_group(cast(dict, param_group))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_compile.py", line 53, in inner
+    return disable_fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_dynamo/eval_frame.py", line 929, in _fn
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 1112, in add_param_group
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=13435, ip=10.100.14.161, actor_id=375aaef96fe096edc925b12c01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7fb9ec5b9010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+[2025-10-16 11:02:01,813][flwr][ERROR] - Traceback (most recent call last):
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 95, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        partition_id_str, timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 401, in get_client_result
+    return self._fetch_future_result(cid)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 282, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ~~~~~~~^
+        future
+        ^^^^^^
+    )  # type: (str, Message, Context)
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/client_mode_hook.py", line 104, in wrapper
+    return func(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 2962, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ~~~~~~~~~~~~~~~~~~^
+        object_refs, timeout=timeout, _tensor_transport=_tensor_transport
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 1026, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=13417, ip=10.100.14.161, actor_id=31104adad6ed9b75737e652d01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f8ba03bd010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 54, in fit
+    optim = torch.optim.SGD(self.get_parameters(parameters), lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 400, in __init__
+    self.add_param_group(cast(dict, param_group))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_compile.py", line 53, in inner
+    return disable_fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_dynamo/eval_frame.py", line 929, in _fn
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 1112, in add_param_group
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=13417, ip=10.100.14.161, actor_id=31104adad6ed9b75737e652d01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f8ba03bd010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+[2025-10-16 11:02:01,813][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=13417, ip=10.100.14.161, actor_id=31104adad6ed9b75737e652d01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f8ba03bd010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 54, in fit
+    optim = torch.optim.SGD(self.get_parameters(parameters), lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 400, in __init__
+    self.add_param_group(cast(dict, param_group))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_compile.py", line 53, in inner
+    return disable_fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_dynamo/eval_frame.py", line 929, in _fn
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 1112, in add_param_group
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=13417, ip=10.100.14.161, actor_id=31104adad6ed9b75737e652d01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f8ba03bd010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+[2025-10-16 11:02:02,099][flwr][ERROR] - Traceback (most recent call last):
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 95, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        partition_id_str, timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 401, in get_client_result
+    return self._fetch_future_result(cid)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 282, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ~~~~~~~^
+        future
+        ^^^^^^
+    )  # type: (str, Message, Context)
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/client_mode_hook.py", line 104, in wrapper
+    return func(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 2962, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ~~~~~~~~~~~~~~~~~~^
+        object_refs, timeout=timeout, _tensor_transport=_tensor_transport
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 1026, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=13421, ip=10.100.14.161, actor_id=86c2c8abf1f6f23f1fa7e06801000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7fde043d1010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 54, in fit
+    optim = torch.optim.SGD(self.get_parameters(parameters), lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 400, in __init__
+    self.add_param_group(cast(dict, param_group))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_compile.py", line 53, in inner
+    return disable_fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_dynamo/eval_frame.py", line 929, in _fn
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 1112, in add_param_group
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=13421, ip=10.100.14.161, actor_id=86c2c8abf1f6f23f1fa7e06801000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7fde043d1010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+[2025-10-16 11:02:02,099][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=13421, ip=10.100.14.161, actor_id=86c2c8abf1f6f23f1fa7e06801000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7fde043d1010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 54, in fit
+    optim = torch.optim.SGD(self.get_parameters(parameters), lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 400, in __init__
+    self.add_param_group(cast(dict, param_group))
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_compile.py", line 53, in inner
+    return disable_fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/_dynamo/eval_frame.py", line 929, in _fn
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 1112, in add_param_group
+    raise TypeError(
+    ...<2 lines>...
+    )
+TypeError: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=13421, ip=10.100.14.161, actor_id=86c2c8abf1f6f23f1fa7e06801000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7fde043d1010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: optimizer can only optimize Tensors, but one of the params is numpy.ndarray
+[2025-10-16 11:02:02,100][flwr][INFO] - aggregate_fit: received 0 results and 10 failures
+[2025-10-16 11:02:02,616][flwr][INFO] - fit progress: (1, 181.82725071907043, {'accuracy': 0.098}, 2.736366748999899)
+[2025-10-16 11:02:02,616][flwr][INFO] - configure_evaluate: strategy sampled 25 clients (out of 100)
+[2025-10-16 11:02:05,255][flwr][INFO] - aggregate_evaluate: received 25 results and 0 failures
+[2025-10-16 11:02:05,255][flwr][WARNING] - No evaluate_metrics_aggregation_fn provided
+[2025-10-16 11:02:05,255][flwr][INFO] - 
+[2025-10-16 11:02:05,255][flwr][INFO] - [SUMMARY]
+[2025-10-16 11:02:05,255][flwr][INFO] - Run finished 1 round(s) in 5.38s
+[2025-10-16 11:02:05,255][flwr][INFO] - 	History (loss, distributed):
+[2025-10-16 11:02:05,255][flwr][INFO] - 		round 1: 6.893444576263428
+[2025-10-16 11:02:05,255][flwr][INFO] - 	History (loss, centralized):
+[2025-10-16 11:02:05,255][flwr][INFO] - 		round 0: 181.82725071907043
+[2025-10-16 11:02:05,255][flwr][INFO] - 		round 1: 181.82725071907043
+[2025-10-16 11:02:05,255][flwr][INFO] - 	History (metrics, centralized):
+[2025-10-16 11:02:05,255][flwr][INFO] - 	{'accuracy': [(0, 0.098), (1, 0.098)]}
+[2025-10-16 11:02:05,255][flwr][INFO] - 

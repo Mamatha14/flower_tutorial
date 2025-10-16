@@ -1,0 +1,1042 @@
+[2025-10-15 15:13:32,660][flwr][WARNING] - DEPRECATED FEATURE: flwr.simulation.start_simulation() is deprecated.
+	Instead, use the `flwr run` CLI command to start a local simulation in your Flower app, as shown for example below:
+
+		$ flwr new  # Create a new Flower app from a template
+
+		$ flwr run  # Run the Flower app in Simulation Mode
+
+	Using `start_simulation()` is deprecated.
+
+            This is a deprecated feature. It will be removed
+            entirely in future versions of Flower.
+        
+[2025-10-15 15:13:32,660][flwr][INFO] - Starting Flower simulation, config: num_rounds=1, no round_timeout
+[2025-10-15 15:13:34,136][flwr][INFO] - Flower VCE: Ray initialized with resources: {'CPU': 20.0, 'object_store_memory': 7995708211.0, 'memory': 18656652493.0, 'node:__internal_head__': 1.0, 'node:10.100.14.161': 1.0}
+[2025-10-15 15:13:34,136][flwr][INFO] - Optimize your simulation with Flower VCE: https://flower.ai/docs/framework/how-to-run-simulations.html
+[2025-10-15 15:13:34,136][flwr][INFO] - No `client_resources` specified. Using minimal resources for clients.
+[2025-10-15 15:13:34,136][flwr][INFO] - Flower VCE: Resources for each Virtual Client: {'num_cpus': 1, 'num_gpus': 0.0}
+[2025-10-15 15:13:34,199][flwr][INFO] - Flower VCE: Creating VirtualClientEngineActorPool with 20 actors
+[2025-10-15 15:13:34,199][flwr][INFO] - [INIT]
+[2025-10-15 15:13:34,199][flwr][INFO] - Requesting initial parameters from one random client
+[2025-10-15 15:13:35,628][flwr][INFO] - Received initial parameters from one random client
+[2025-10-15 15:13:35,629][flwr][INFO] - Starting evaluation of initial global parameters
+[2025-10-15 15:13:36,144][flwr][INFO] - initial parameters (loss, other metrics): 181.6974778175354, {'accuracy': 0.098}
+[2025-10-15 15:13:36,144][flwr][INFO] - 
+[2025-10-15 15:13:36,144][flwr][INFO] - [ROUND 1]
+[2025-10-15 15:13:36,144][flwr][INFO] - configure_fit: strategy sampled 10 clients (out of 100)
+[2025-10-15 15:13:36,635][flwr][ERROR] - Traceback (most recent call last):
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 95, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        partition_id_str, timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 401, in get_client_result
+    return self._fetch_future_result(cid)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 282, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ~~~~~~~^
+        future
+        ^^^^^^
+    )  # type: (str, Message, Context)
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/client_mode_hook.py", line 104, in wrapper
+    return func(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 2962, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ~~~~~~~~~~~~~~~~~~^
+        object_refs, timeout=timeout, _tensor_transport=_tensor_transport
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 1026, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=26765, ip=10.100.14.161, actor_id=d65370368214fa1503bf6fd101000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7fc254159010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 48, in fit
+    optim = torch.optim.SGD(self.model.parameters, lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 393, in __init__
+    param_groups = list(params)
+TypeError: 'method' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=26765, ip=10.100.14.161, actor_id=d65370368214fa1503bf6fd101000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7fc254159010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: 'method' object is not iterable
+
+[2025-10-15 15:13:36,635][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=26765, ip=10.100.14.161, actor_id=d65370368214fa1503bf6fd101000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7fc254159010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 48, in fit
+    optim = torch.optim.SGD(self.model.parameters, lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 393, in __init__
+    param_groups = list(params)
+TypeError: 'method' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=26765, ip=10.100.14.161, actor_id=d65370368214fa1503bf6fd101000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7fc254159010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: 'method' object is not iterable
+[2025-10-15 15:13:37,572][flwr][ERROR] - Traceback (most recent call last):
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 95, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        partition_id_str, timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 401, in get_client_result
+    return self._fetch_future_result(cid)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 282, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ~~~~~~~^
+        future
+        ^^^^^^
+    )  # type: (str, Message, Context)
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/client_mode_hook.py", line 104, in wrapper
+    return func(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 2962, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ~~~~~~~~~~~~~~~~~~^
+        object_refs, timeout=timeout, _tensor_transport=_tensor_transport
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 1026, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=26764, ip=10.100.14.161, actor_id=64e4edcd66cfb242eb67945601000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f9b045b9010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 48, in fit
+    optim = torch.optim.SGD(self.model.parameters, lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 393, in __init__
+    param_groups = list(params)
+TypeError: 'method' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=26764, ip=10.100.14.161, actor_id=64e4edcd66cfb242eb67945601000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f9b045b9010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: 'method' object is not iterable
+
+[2025-10-15 15:13:37,572][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=26764, ip=10.100.14.161, actor_id=64e4edcd66cfb242eb67945601000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f9b045b9010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 48, in fit
+    optim = torch.optim.SGD(self.model.parameters, lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 393, in __init__
+    param_groups = list(params)
+TypeError: 'method' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=26764, ip=10.100.14.161, actor_id=64e4edcd66cfb242eb67945601000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f9b045b9010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: 'method' object is not iterable
+[2025-10-15 15:13:37,724][flwr][ERROR] - Traceback (most recent call last):
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 95, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        partition_id_str, timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 401, in get_client_result
+    return self._fetch_future_result(cid)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 282, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ~~~~~~~^
+        future
+        ^^^^^^
+    )  # type: (str, Message, Context)
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/client_mode_hook.py", line 104, in wrapper
+    return func(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 2962, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ~~~~~~~~~~~~~~~~~~^
+        object_refs, timeout=timeout, _tensor_transport=_tensor_transport
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 1026, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=26767, ip=10.100.14.161, actor_id=c83888f6bac4f4a42502eacd01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f09b807d010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 48, in fit
+    optim = torch.optim.SGD(self.model.parameters, lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 393, in __init__
+    param_groups = list(params)
+TypeError: 'method' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=26767, ip=10.100.14.161, actor_id=c83888f6bac4f4a42502eacd01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f09b807d010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: 'method' object is not iterable
+
+[2025-10-15 15:13:37,724][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=26767, ip=10.100.14.161, actor_id=c83888f6bac4f4a42502eacd01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f09b807d010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 48, in fit
+    optim = torch.optim.SGD(self.model.parameters, lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 393, in __init__
+    param_groups = list(params)
+TypeError: 'method' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=26767, ip=10.100.14.161, actor_id=c83888f6bac4f4a42502eacd01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f09b807d010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: 'method' object is not iterable
+[2025-10-15 15:13:37,785][flwr][ERROR] - Traceback (most recent call last):
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 95, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        partition_id_str, timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 401, in get_client_result
+    return self._fetch_future_result(cid)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 282, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ~~~~~~~^
+        future
+        ^^^^^^
+    )  # type: (str, Message, Context)
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/client_mode_hook.py", line 104, in wrapper
+    return func(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 2962, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ~~~~~~~~~~~~~~~~~~^
+        object_refs, timeout=timeout, _tensor_transport=_tensor_transport
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 1026, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=26752, ip=10.100.14.161, actor_id=6cbf67845943025f7ced335801000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f4978359010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 48, in fit
+    optim = torch.optim.SGD(self.model.parameters, lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 393, in __init__
+    param_groups = list(params)
+TypeError: 'method' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=26752, ip=10.100.14.161, actor_id=6cbf67845943025f7ced335801000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f4978359010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: 'method' object is not iterable
+
+[2025-10-15 15:13:37,786][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=26752, ip=10.100.14.161, actor_id=6cbf67845943025f7ced335801000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f4978359010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 48, in fit
+    optim = torch.optim.SGD(self.model.parameters, lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 393, in __init__
+    param_groups = list(params)
+TypeError: 'method' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=26752, ip=10.100.14.161, actor_id=6cbf67845943025f7ced335801000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f4978359010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: 'method' object is not iterable
+[2025-10-15 15:13:37,797][flwr][ERROR] - Traceback (most recent call last):
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 95, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        partition_id_str, timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 401, in get_client_result
+    return self._fetch_future_result(cid)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 282, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ~~~~~~~^
+        future
+        ^^^^^^
+    )  # type: (str, Message, Context)
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/client_mode_hook.py", line 104, in wrapper
+    return func(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 2962, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ~~~~~~~~~~~~~~~~~~^
+        object_refs, timeout=timeout, _tensor_transport=_tensor_transport
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 1026, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=26748, ip=10.100.14.161, actor_id=7012bf368558f071cd7e657a01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f56f4745010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 48, in fit
+    optim = torch.optim.SGD(self.model.parameters, lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 393, in __init__
+    param_groups = list(params)
+TypeError: 'method' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=26748, ip=10.100.14.161, actor_id=7012bf368558f071cd7e657a01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f56f4745010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: 'method' object is not iterable
+
+[2025-10-15 15:13:37,797][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=26748, ip=10.100.14.161, actor_id=7012bf368558f071cd7e657a01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f56f4745010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 48, in fit
+    optim = torch.optim.SGD(self.model.parameters, lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 393, in __init__
+    param_groups = list(params)
+TypeError: 'method' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=26748, ip=10.100.14.161, actor_id=7012bf368558f071cd7e657a01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f56f4745010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: 'method' object is not iterable
+[2025-10-15 15:13:37,827][flwr][ERROR] - Traceback (most recent call last):
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 95, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        partition_id_str, timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 401, in get_client_result
+    return self._fetch_future_result(cid)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 282, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ~~~~~~~^
+        future
+        ^^^^^^
+    )  # type: (str, Message, Context)
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/client_mode_hook.py", line 104, in wrapper
+    return func(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 2962, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ~~~~~~~~~~~~~~~~~~^
+        object_refs, timeout=timeout, _tensor_transport=_tensor_transport
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 1026, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=26751, ip=10.100.14.161, actor_id=f1cc45eb3802d7a50acd7cbc01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7faec4021010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 48, in fit
+    optim = torch.optim.SGD(self.model.parameters, lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 393, in __init__
+    param_groups = list(params)
+TypeError: 'method' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=26751, ip=10.100.14.161, actor_id=f1cc45eb3802d7a50acd7cbc01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7faec4021010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: 'method' object is not iterable
+
+[2025-10-15 15:13:37,827][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=26751, ip=10.100.14.161, actor_id=f1cc45eb3802d7a50acd7cbc01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7faec4021010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 48, in fit
+    optim = torch.optim.SGD(self.model.parameters, lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 393, in __init__
+    param_groups = list(params)
+TypeError: 'method' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=26751, ip=10.100.14.161, actor_id=f1cc45eb3802d7a50acd7cbc01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7faec4021010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: 'method' object is not iterable
+[2025-10-15 15:13:37,866][flwr][ERROR] - Traceback (most recent call last):
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 95, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        partition_id_str, timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 401, in get_client_result
+    return self._fetch_future_result(cid)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 282, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ~~~~~~~^
+        future
+        ^^^^^^
+    )  # type: (str, Message, Context)
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/client_mode_hook.py", line 104, in wrapper
+    return func(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 2962, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ~~~~~~~~~~~~~~~~~~^
+        object_refs, timeout=timeout, _tensor_transport=_tensor_transport
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 1026, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=26757, ip=10.100.14.161, actor_id=e1b15f10e2b47643843b7f6b01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f38684d1010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 48, in fit
+    optim = torch.optim.SGD(self.model.parameters, lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 393, in __init__
+    param_groups = list(params)
+TypeError: 'method' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=26757, ip=10.100.14.161, actor_id=e1b15f10e2b47643843b7f6b01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f38684d1010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: 'method' object is not iterable
+
+[2025-10-15 15:13:37,866][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=26757, ip=10.100.14.161, actor_id=e1b15f10e2b47643843b7f6b01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f38684d1010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 48, in fit
+    optim = torch.optim.SGD(self.model.parameters, lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 393, in __init__
+    param_groups = list(params)
+TypeError: 'method' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=26757, ip=10.100.14.161, actor_id=e1b15f10e2b47643843b7f6b01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f38684d1010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: 'method' object is not iterable
+[2025-10-15 15:13:37,945][flwr][ERROR] - Traceback (most recent call last):
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 95, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        partition_id_str, timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 401, in get_client_result
+    return self._fetch_future_result(cid)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 282, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ~~~~~~~^
+        future
+        ^^^^^^
+    )  # type: (str, Message, Context)
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/client_mode_hook.py", line 104, in wrapper
+    return func(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 2962, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ~~~~~~~~~~~~~~~~~~^
+        object_refs, timeout=timeout, _tensor_transport=_tensor_transport
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 1026, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=26762, ip=10.100.14.161, actor_id=047410b1a70d9adeb39c89b301000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f178807d010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 48, in fit
+    optim = torch.optim.SGD(self.model.parameters, lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 393, in __init__
+    param_groups = list(params)
+TypeError: 'method' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=26762, ip=10.100.14.161, actor_id=047410b1a70d9adeb39c89b301000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f178807d010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: 'method' object is not iterable
+
+[2025-10-15 15:13:37,946][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=26762, ip=10.100.14.161, actor_id=047410b1a70d9adeb39c89b301000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f178807d010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 48, in fit
+    optim = torch.optim.SGD(self.model.parameters, lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 393, in __init__
+    param_groups = list(params)
+TypeError: 'method' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=26762, ip=10.100.14.161, actor_id=047410b1a70d9adeb39c89b301000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f178807d010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: 'method' object is not iterable
+[2025-10-15 15:13:37,975][flwr][ERROR] - Traceback (most recent call last):
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 95, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        partition_id_str, timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 401, in get_client_result
+    return self._fetch_future_result(cid)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 282, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ~~~~~~~^
+        future
+        ^^^^^^
+    )  # type: (str, Message, Context)
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/client_mode_hook.py", line 104, in wrapper
+    return func(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 2962, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ~~~~~~~~~~~~~~~~~~^
+        object_refs, timeout=timeout, _tensor_transport=_tensor_transport
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 1026, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=26766, ip=10.100.14.161, actor_id=193c479d24d014c3df5468ab01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7fc0a80cd010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 48, in fit
+    optim = torch.optim.SGD(self.model.parameters, lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 393, in __init__
+    param_groups = list(params)
+TypeError: 'method' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=26766, ip=10.100.14.161, actor_id=193c479d24d014c3df5468ab01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7fc0a80cd010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: 'method' object is not iterable
+
+[2025-10-15 15:13:37,976][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=26766, ip=10.100.14.161, actor_id=193c479d24d014c3df5468ab01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7fc0a80cd010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 48, in fit
+    optim = torch.optim.SGD(self.model.parameters, lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 393, in __init__
+    param_groups = list(params)
+TypeError: 'method' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=26766, ip=10.100.14.161, actor_id=193c479d24d014c3df5468ab01000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7fc0a80cd010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: 'method' object is not iterable
+[2025-10-15 15:13:38,122][flwr][ERROR] - Traceback (most recent call last):
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_client_proxy.py", line 95, in _submit_job
+    out_mssg, updated_context = self.actor_pool.get_client_result(
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        partition_id_str, timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 401, in get_client_result
+    return self._fetch_future_result(cid)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 282, in _fetch_future_result
+    res_cid, out_mssg, updated_context = ray.get(
+                                         ~~~~~~~^
+        future
+        ^^^^^^
+    )  # type: (str, Message, Context)
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/auto_init_hook.py", line 22, in auto_init_wrapper
+    return fn(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/client_mode_hook.py", line 104, in wrapper
+    return func(*args, **kwargs)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 2962, in get
+    values, debugger_breakpoint = worker.get_objects(
+                                  ~~~~~~~~~~~~~~~~~~^
+        object_refs, timeout=timeout, _tensor_transport=_tensor_transport
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/ray/_private/worker.py", line 1026, in get_objects
+    raise value.as_instanceof_cause()
+ray.exceptions.RayTaskError(ClientAppException): [36mray::ClientAppActor.run()[39m (pid=26761, ip=10.100.14.161, actor_id=91d7b0574d58ebb8682938e801000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f43903c1010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 48, in fit
+    optim = torch.optim.SGD(self.model.parameters, lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 393, in __init__
+    param_groups = list(params)
+TypeError: 'method' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=26761, ip=10.100.14.161, actor_id=91d7b0574d58ebb8682938e801000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f43903c1010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: 'method' object is not iterable
+
+[2025-10-15 15:13:38,122][flwr][ERROR] - [36mray::ClientAppActor.run()[39m (pid=26761, ip=10.100.14.161, actor_id=91d7b0574d58ebb8682938e801000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f43903c1010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 144, in __call__
+    return self._call(message, context)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client_app.py", line 128, in ffn
+    out_message = handle_legacy_message_from_msgtype(
+        client_fn=client_fn, message=message, context=context
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/message_handler/message_handler.py", line 128, in handle_legacy_message_from_msgtype
+    fit_res = maybe_call_fit(
+        client=client,
+        fit_ins=recorddict_to_fitins(message.content, keep_input=True),
+    )
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/client.py", line 224, in maybe_call_fit
+    return client.fit(fit_ins)
+           ~~~~~~~~~~^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/client/numpy_client.py", line 227, in _fit
+    results = self.numpy_client.fit(parameters, ins.config)  # type: ignore
+  File "/home/mamatha/ME/Research/Hands-On/flower_tutorial/client.py", line 48, in fit
+    optim = torch.optim.SGD(self.model.parameters, lr=lr, momentum=momentum)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/sgd.py", line 65, in __init__
+    super().__init__(params, defaults)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/torch/optim/optimizer.py", line 393, in __init__
+    param_groups = list(params)
+TypeError: 'method' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+[36mray::ClientAppActor.run()[39m (pid=26761, ip=10.100.14.161, actor_id=91d7b0574d58ebb8682938e801000000, repr=<flwr.simulation.ray_transport.ray_actor.ClientAppActor object at 0x7f43903c1010>)
+  File "/home/mamatha/anaconda3/lib/python3.13/site-packages/flwr/simulation/ray_transport/ray_actor.py", line 64, in run
+    raise ClientAppException(str(ex)) from ex
+flwr.client.client_app.ClientAppException: 
+Exception ClientAppException occurred. Message: 'method' object is not iterable
+[2025-10-15 15:13:38,123][flwr][INFO] - aggregate_fit: received 0 results and 10 failures
+[2025-10-15 15:13:38,641][flwr][INFO] - fit progress: (1, 181.6974778175354, {'accuracy': 0.098}, 2.4971682310024335)
+[2025-10-15 15:13:38,641][flwr][INFO] - configure_evaluate: strategy sampled 25 clients (out of 100)
+[2025-10-15 15:13:41,350][flwr][INFO] - aggregate_evaluate: received 25 results and 0 failures
+[2025-10-15 15:13:41,350][flwr][WARNING] - No evaluate_metrics_aggregation_fn provided
+[2025-10-15 15:13:41,350][flwr][INFO] - 
+[2025-10-15 15:13:41,350][flwr][INFO] - [SUMMARY]
+[2025-10-15 15:13:41,351][flwr][INFO] - Run finished 1 round(s) in 5.21s
+[2025-10-15 15:13:41,351][flwr][INFO] - 	History (loss, distributed):
+[2025-10-15 15:13:41,351][flwr][INFO] - 		round 1: 6.899402370452881
+[2025-10-15 15:13:41,351][flwr][INFO] - 	History (loss, centralized):
+[2025-10-15 15:13:41,351][flwr][INFO] - 		round 0: 181.6974778175354
+[2025-10-15 15:13:41,351][flwr][INFO] - 		round 1: 181.6974778175354
+[2025-10-15 15:13:41,351][flwr][INFO] - 	History (metrics, centralized):
+[2025-10-15 15:13:41,351][flwr][INFO] - 	{'accuracy': [(0, 0.098), (1, 0.098)]}
+[2025-10-15 15:13:41,351][flwr][INFO] - 
