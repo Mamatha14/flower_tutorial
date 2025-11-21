@@ -7,19 +7,21 @@ from omegaconf import DictConfig, OmegaConf
 import torch
 import flwr as fl
 
-from model import Net, train, test
+from hydra.utils import instantiate
+
+from model import train, test
 
 class FlowerClient(fl.client.NumPyClient):
     def __init__(self, 
                  trainloader, 
                  valloader, 
-                 num_classes) -> None:
+                 model_cfg) -> None:
         super().__init__()
 
         self.trainloader = trainloader
         self.valloader = valloader
 
-        self.model = Net(num_classes)
+        self.model = instantiate(model_cfg)
 
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         
@@ -65,14 +67,14 @@ class FlowerClient(fl.client.NumPyClient):
        return float(loss), len(self.valloader), {'accuracy': accuracy}
     
 
-def generate_client_fn(trainloaders, valloaders, num_classes):
+def generate_client_fn(trainloaders, valloaders, model_cfg):
     
     def client_fn(cid: str):
 
 
         return FlowerClient(trainloader=trainloaders[int(cid)],
                             valloader=valloaders[int(cid)],
-                            num_classes=num_classes
+                            model_cfg=model_cfg
         )
 
     return client_fn

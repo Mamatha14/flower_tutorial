@@ -10,3 +10,18 @@ config_fit:
   lr: 0.01
   momentum: 0.9
   local_epochs: 1
+
+# rather than specifying the parameters for the strategy in the main file we can specify them in the config folder
+# following defines fedavg yaml file in the strategy folder.
+
+# below 'model' code is for single model used
+# model:
+#   _target_: model.Net
+#   num_classes: ${num_classes}
+
+# if multiple models r used then a config file can be created with name net.yaml
+# as follows
+
+defaults:
+  - strategy: fedavg
+  - model: net

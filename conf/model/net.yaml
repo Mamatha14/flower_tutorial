@@ -1,0 +1,5 @@
+# for multiple models we can have a seperate file having list of models to be used
+
+
+_target_: model.Net
+num_classes: ${num_classes}
