@@ -2,7 +2,9 @@ from omegaconf import DictConfig
 
 from collections import OrderedDict
 
-from model import Net, test
+from hydra.utils import instantiate
+
+from model import test
 
 import torch
 
@@ -17,11 +19,12 @@ def get_on_fit_config(config: DictConfig):
     
     return fit_config_fn
 
-def get_evaluate_fn(num_classes: int, testloader):
+def get_evaluate_fn(model_cfg, testloader):
 
     def evaluate_fn(server_round: int, parameters, config):
         
-        model = Net(num_classes)
+        # model = Net(num_classes)
+        model = instantiate(model_cfg) # --> This is giving error
 
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
